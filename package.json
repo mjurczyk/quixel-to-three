@@ -1,0 +1,28 @@
+{
+  "name": "quixel-to-three",
+  "version": "1.0.0",
+  "description": "Convert Quixel materials into Three.js compatible PBR textures",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "quixel",
+    "three",
+    "three.js",
+    "threejs",
+    "material",
+    "converter",
+    "unreal engine 4",
+    "ue4",
+    "pbr",
+    "physically based rendering"
+  ],
+  "author": "mjurczyk",
+  "license": "MIT",
+  "devDependencies": {
+    "fs-extra": "^9.0.0",
+    "jimp": "^0.12.1"
+  },
+  "bin": {
+    "quixel-to-three": "./cli.js"
+  }
+}
