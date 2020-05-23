@@ -77,42 +77,30 @@ return Promise.all(
   const aoPromise = new Promise(resolve => {
     if (availableAssets.t3ao) {
       Jimp.read(pathBase.join(QuixelMapping.t3ao)).then(image => {
-        const rescaled = image.resize(outputWidth, Jimp.AUTO, Jimp.RESIZE_NEAREST_NEIGHBOR);
-        resolve(rescaled.scan(0, 0, rescaled.bitmap.width, rescaled.bitmap.height, function (x, y, index) {
-          this.bitmap.data[index + 1] = 0;
-          this.bitmap.data[index + 2] = 0;
-        }));
+        resolve(image.resize(outputWidth, Jimp.AUTO, Jimp.RESIZE_NEAREST_NEIGHBOR));
       });
     } else {
-      resolve(new Jimp(outputWidth, outputWidth * outputAspectRatio, 0xffffff));
+      resolve(new Jimp(outputWidth, outputWidth * outputAspectRatio, 0xffffffff));
     }
   });
 
   const roughnessPromise = new Promise(resolve => {
     if (availableAssets.t3roughness) {
       Jimp.read(pathBase.join(QuixelMapping.t3roughness)).then(image => {
-        const rescaled = image.resize(outputWidth, Jimp.AUTO, Jimp.RESIZE_NEAREST_NEIGHBOR);
-        resolve(rescaled.scan(0, 0, rescaled.bitmap.width, rescaled.bitmap.height, function (x, y, index) {
-          this.bitmap.data[index + 0] = 0;
-          this.bitmap.data[index + 2] = 0;
-        }));
+        resolve(image.resize(outputWidth, Jimp.AUTO, Jimp.RESIZE_NEAREST_NEIGHBOR));
       });
     } else {
-      resolve(new Jimp(outputWidth, outputWidth * outputAspectRatio, 0xffffff));
+      resolve(new Jimp(outputWidth, outputWidth * outputAspectRatio, 0xffffffff));
     }
   });
 
   const metalnessPromise = new Promise(resolve => {
     if (availableAssets.t3metalness) {
       Jimp.read(pathBase.join(QuixelMapping.t3metalness)).then(image => {
-        const rescaled = image.resize(outputWidth, Jimp.AUTO, Jimp.RESIZE_NEAREST_NEIGHBOR);
-        resolve(rescaled.scan(0, 0, rescaled.bitmap.width, rescaled.bitmap.height, function (x, y, index) {
-          this.bitmap.data[index + 0] = 0;
-          this.bitmap.data[index + 1] = 0;
-        }));
+        resolve(image.resize(outputWidth, Jimp.AUTO, Jimp.RESIZE_NEAREST_NEIGHBOR));
       });
     } else {
-      resolve(new Jimp(outputWidth, outputWidth * outputAspectRatio, 0x000000));
+      resolve(new Jimp(outputWidth, outputWidth * outputAspectRatio, 0x000000ff));
     }
   });
 
