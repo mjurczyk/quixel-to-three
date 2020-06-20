@@ -1,6 +1,8 @@
-# Convert Quixel assets into Three.js compatible PBR materials
+<div style="text-align: center;">
+<img src="https://user-images.githubusercontent.com/9549760/85209874-b4717c00-b33b-11ea-9b74-197510352a3d.png" />
+</div>
 
-![ezgif-1-5868c0f73076](https://user-images.githubusercontent.com/9549760/82736537-c0f9b900-9d2a-11ea-8682-e54bf37b7798.gif)
+Convert Quixel assets into Three.js compatible PBR materials.
 
 ## Usage
 
@@ -10,6 +12,8 @@ quixel-to-three /absolute/path/to/any/quixel/asset_2K_Albedo.jpg
 ```
 
 Command converts a collection of Quixel assets (albedo, normals, roughness, etc.) into a corresponding Three.js PBR maps (use with [MeshStandardMaterial](https://threejs.org/docs/index.html#api/en/materials/MeshStandardMaterial).)
+
+![ezgif-1-5868c0f73076](https://user-images.githubusercontent.com/9549760/82736537-c0f9b900-9d2a-11ea-8682-e54bf37b7798.gif)
 
 ### Output
 
