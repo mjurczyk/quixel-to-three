@@ -6,7 +6,7 @@ const fs = require('fs-extra');
 const QuixelMapping = {
   't3roughness': [ 'Roughness', 'roughness' ],
   't3ao': [ 'AO', 'ao' ],
-  't3metalness': [ 'Metalness', 'metalness' ],
+  't3metalness': [ 'Metalness', 'metalness', 'metallic' ],
   't3normal': [ 'Normal', 'normal', ],
   't3map': [ 'Albedo', 'albedo' ],
   't3displacement': [ 'Displacement', 'displacement', 'height' ]
