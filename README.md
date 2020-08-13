@@ -15,9 +15,35 @@ Command converts a collection of Quixel assets (albedo, normals, roughness, etc.
 
 ![ezgif-1-5868c0f73076](https://user-images.githubusercontent.com/9549760/82736537-c0f9b900-9d2a-11ea-8682-e54bf37b7798.gif)
 
-### Output
+#### Output
 
 Output files are placed next to the original assets with an appended `t3` prefix.
+
+#### Usage with Three.js
+
+Converted assets can be plugged directly into Three.js PBR materials:
+
+```js
+const mesh = new THREE.Mesh(
+    new THREE.IcosahedronBufferGeometry(2, 5),
+    new THREE.MeshStandardMaterial({
+        map: './assets/texture_2K_t3map.png',                       // Use t3map for map
+        normalMap: './assets/texture_2K_t3normal.png',              // Use t3normal for normalMap
+        aoMap: './assets/texture_2K_t3pbr.png',                     // Use t3pbr for aoMap
+        metalnessMap: './assets/texture_2K_t3pbr.png',              // Use t3pbr for metalnessMap
+        roughnessMap: './assets/texture_2K_t3pbr.png',              // Use t3pbr for roughnessMap
+        displacementMap: './assets/texture_2K_t3displacement.png'   // Use t3displacement for displacementMap
+    })
+);
+```
+
+See PBR example [here](https://codepen.io/mjurczyk/pen/yLeMxWx).
+
+#### Missing files
+
+Some materials contain all texture maps - albedo, normals, roughness etc. Some skip the maps that are unnecessary. For example, if original assets do not contain a displacement map `t3displacement` will not be created.
+
+For PBR texture maps, if some are not present, default Three.js values are used instead (see [docs](https://threejs.org/docs/index.html#api/en/materials/MeshStandardMaterial) for more details).
 
 ### Output size
 
