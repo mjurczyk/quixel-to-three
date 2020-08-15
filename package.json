@@ -18,9 +18,9 @@
   ],
   "author": "mjurczyk",
   "license": "MIT",
-  "devDependencies": {
-    "fs-extra": "^9.0.0",
-    "jimp": "^0.12.1"
+  "dependencies": {
+    "fs-extra": "9.0.0",
+    "jimp": "0.12.1"
   },
   "bin": {
     "quixel-to-three": "./cli.js"
