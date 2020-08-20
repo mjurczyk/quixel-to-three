@@ -5,11 +5,11 @@ const fs = require('fs-extra');
 
 const QuixelMapping = {
   't3roughness': [ 'Roughness', 'roughness' ],
-  't3ao': [ 'AO', 'ao' ],
+  't3ao': [ 'AO', 'ao', 'ambient_occlusion', 'Ambient_Occlusion' ],
   't3metalness': [ 'Metalness', 'metalness', 'metallic' ],
-  't3normal': [ 'Normal', 'normal', ],
-  't3map': [ 'Albedo', 'albedo' ],
-  't3displacement': [ 'Displacement', 'displacement', 'height' ]
+  't3normal': [ 'Normal', 'normal' ],
+  't3map': [ 'Albedo', 'albedo', 'color', 'base_color', 'Base_Color' ],
+  't3displacement': [ 'Displacement', 'displacement', 'height', 'Height' ]
 };
 const DefaultOutputWidth = 1024;
 const DefaultOutputFiletype = 'jpg';
@@ -52,13 +52,21 @@ const outputWidth = !isNaN(parseInt(arg2, 10)) ? parseInt(arg2, 10) : DefaultOut
 let outputAspectRatio;
 const availableAssets = {};
 
+console.info('Searching ...');
+
 return Promise.all(
   Object.keys(QuixelMapping).map((id) => {
     availableAssets[id] = QuixelMapping[id].some(path => {
-      const exists = fs.pathExistsSync(pathBase.join(path));
+      const filepath = pathBase.join(path);
+      const exists = fs.pathExistsSync(filepath);
 
       if (exists) {
         QuixelMapping[id] = path;
+
+        console.info([
+          `Asset: ${filepath}`,
+          `Type: ${path}`
+        ].join(' '));
 
         return true;
       }
@@ -89,6 +97,8 @@ return Promise.all(
 
   if (availableAssets.t3map) {
     Jimp.read(pathBase.join(QuixelMapping.t3map)).then(image => {
+      console.info('Converting albedo ...');
+
       const result = image.resize(outputWidth, Jimp.AUTO, Jimp.RESIZE_NEAREST_NEIGHBOR)
         .write(pathBase.join('t3map').replace(SupportedFiletypesRegExp, DefaultOutputFiletype));
     });
@@ -96,6 +106,8 @@ return Promise.all(
 
   const aoPromise = new Promise(resolve => {
     if (availableAssets.t3ao) {
+      console.info('Converting ambient occlusion ...');
+
       Jimp.read(pathBase.join(QuixelMapping.t3ao)).then(image => {
         resolve(image.resize(outputWidth, Jimp.AUTO, Jimp.RESIZE_NEAREST_NEIGHBOR));
       });
@@ -106,6 +118,8 @@ return Promise.all(
 
   const roughnessPromise = new Promise(resolve => {
     if (availableAssets.t3roughness) {
+      console.info('Converting roughness ...');
+
       Jimp.read(pathBase.join(QuixelMapping.t3roughness)).then(image => {
         resolve(image.resize(outputWidth, Jimp.AUTO, Jimp.RESIZE_NEAREST_NEIGHBOR));
       });
@@ -116,6 +130,8 @@ return Promise.all(
 
   const metalnessPromise = new Promise(resolve => {
     if (availableAssets.t3metalness) {
+      console.info('Converting metalness ...');
+
       Jimp.read(pathBase.join(QuixelMapping.t3metalness)).then(image => {
         resolve(image.resize(outputWidth, Jimp.AUTO, Jimp.RESIZE_NEAREST_NEIGHBOR));
       });
@@ -125,6 +141,8 @@ return Promise.all(
   });
 
   if (availableAssets.t3normal) {
+    console.info('Converting normals ...');
+
     Jimp.read(pathBase.join(QuixelMapping.t3normal)).then(image => {
       const result = image.resize(outputWidth, Jimp.AUTO, Jimp.RESIZE_NEAREST_NEIGHBOR)
         .write(pathBase.join('t3normal').replace(SupportedFiletypesRegExp, DefaultOutputFiletype));
@@ -132,6 +150,8 @@ return Promise.all(
   }
 
   if (availableAssets.t3displacement) {
+    console.info('Converting displacements ...');
+
     Jimp.read(pathBase.join(QuixelMapping.t3displacement)).then(image => {
       const result = image.resize(outputWidth, Jimp.AUTO, Jimp.RESIZE_NEAREST_NEIGHBOR)
         .write(pathBase.join('t3displacement').replace(SupportedFiletypesRegExp, DefaultOutputFiletype));
@@ -144,6 +164,8 @@ return Promise.all(
     metalnessPromise,
   ]).then(([ ao, roughness, metalness ]) => {
     const pbrMap = new Jimp(outputWidth, outputWidth * outputAspectRatio, 0xffffff);
+
+    console.info('Converting PBR ...');
 
     pbrMap.scan(0, 0, pbrMap.bitmap.width, pbrMap.bitmap.height, function (x, y, index) {
       this.bitmap.data[index + 0] = ao.bitmap.data[index + 0];
