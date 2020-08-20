@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-<img src="https://user-images.githubusercontent.com/9549760/85209874-b4717c00-b33b-11ea-9b74-197510352a3d.png" />
+<img src="https://user-images.githubusercontent.com/9549760/90776740-c8653a00-e2fa-11ea-963a-768b3c35a039.png" />
 </div>
 
 Convert Quixel assets into Three.js compatible PBR materials.
