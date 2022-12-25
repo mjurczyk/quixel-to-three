@@ -2,6 +2,7 @@
 
 const Jimp = require('jimp');
 const fs = require('fs-extra');
+const package = require('./package.json');
 
 const QuixelMapping = {
   't3roughness': [ 'Roughness', 'roughness' ],
@@ -27,6 +28,13 @@ const [ _, __, arg1, arg2 ] = process.argv;
 
 if (!arg1 && !arg2) {
   console.info('quixel-to-three [path/to/any/quixel/asset.jpg] [output-resolution=1024]')
+  return;
+}
+
+const cleanArg1 = arg1.split('-').join('');
+
+if (['version', 'v'].includes(cleanArg1)) {
+  console.info('quixel-to-three', `v${package.version}`);
   return;
 }
 
