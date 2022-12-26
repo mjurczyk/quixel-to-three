@@ -1,8 +1,9 @@
-<div style="text-align: center;">
-<img src="https://user-images.githubusercontent.com/9549760/90776740-c8653a00-e2fa-11ea-963a-768b3c35a039.png" />
-</div>
+<a href="https://codepen.io/mjurczyk/full/JjBYzNp" target="_blank">
+  <img width="100%" src="https://user-images.githubusercontent.com/9549760/209568367-0bf24ef5-7298-4f16-a2b4-8854ba0f53e8.png" title="quixel-to-three - Convert Quixel assets into Three.js compatible PBR materials" />
+</a>
 
-Convert Quixel assets into Three.js compatible PBR materials.
+
+See demo [here](https://codepen.io/mjurczyk/full/JjBYzNp).
 
 ## Usage
 
